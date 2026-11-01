@@ -21,3 +21,4 @@
 
 (defn reset-score [player]
   (assoc player :score 0))
+

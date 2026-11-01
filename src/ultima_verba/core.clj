@@ -1,19 +1,21 @@
 (ns ultima-verba.core
-  (:require [ultima-verba.player :as player])
+  (:require [ultima-verba.player :as player]
+            [ultima-verba.room :as room]
+            [ultima-verba.case :as detective-case])
   (:gen-class))
 
-
-;;this func is naw in player namespace
-#_(defn valid-name? [name]
-  (not (empty? name)))
-
-;;this func is naw in player namespace
-#_(defn create-player [name]
-  (if (valid-name? name)
-    {:name name :score 0}
-    nil))
-
-
 (defn -main [& args]
-  (def create-player (player/create-player "Alex"))
-  (println create-player))
+  (let [first-player (player/create-player "Alex")
+        second-player (player/create-player "Ana")
+        new-room (room/create-room "ABC123" 1)
+        room-with-players (-> new-room
+                              (room/add-player first-player)
+                              (room/add-player second-player))
+        started-room (room/start-game room-with-players)
+        updated-room (room/add-statement started-room
+                                         "Alex"
+                                         "I saw someone near the window.")
+        finished-room (room/finish-game updated-room)]
+    (println "Available cases:" (detective-case/get-case-titles))
+    (println "Room:" (room/get-room-info finished-room))
+    (println "Statements:" (:statements finished-room))))

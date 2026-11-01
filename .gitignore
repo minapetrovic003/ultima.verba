@@ -1,3 +1,4 @@
+
 /target
 /classes
 /checkouts
@@ -11,3 +12,13 @@ pom.xml.asc
 /.prepl-port
 .hgignore
 .hg/
+
+/.idea/
+*.iml
+/.cpcache/
+/.lsp/
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
